@@ -20,6 +20,7 @@ import {
   personOutline,
   lockClosedOutline,
 } from 'ionicons/icons';
+import { ApiService, LoginRequest } from '../core';
 
 @Component({
   selector: 'app-auth',
@@ -41,7 +42,7 @@ export class AuthPage implements OnInit {
   showPassword = false;
   isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     addIcons({
       eyeOffOutline,
       eyeOutline,
@@ -64,12 +65,23 @@ export class AuthPage implements OnInit {
     if (this.loginForm.valid) {
       this.isLoading = true;
 
-      // Simulate login process
-      setTimeout(() => {
-        this.isLoading = false;
-        console.log('Login attempt:', this.loginForm.value);
-        // Add your actual login logic here
-      }, 2000);
+      const credentials: LoginRequest = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      };
+
+      this.apiService.login(credentials).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          console.log('Login successful:', response);
+          // Handle successful login (store token, navigate, etc.)
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Login failed:', error);
+          // Handle login error (show message, etc.)
+        },
+      });
     } else {
       this.markFormGroupTouched();
     }
