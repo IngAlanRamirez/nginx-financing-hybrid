@@ -14,7 +14,12 @@ import {
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
+import {
+  eyeOffOutline,
+  eyeOutline,
+  personOutline,
+  lockClosedOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-auth',
@@ -40,6 +45,8 @@ export class AuthPage implements OnInit {
     addIcons({
       eyeOffOutline,
       eyeOutline,
+      personOutline,
+      lockClosedOutline,
     });
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

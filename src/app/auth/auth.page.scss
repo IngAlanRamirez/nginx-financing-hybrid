@@ -191,9 +191,10 @@
 .input-icon {
   position: absolute;
   left: 16px;
-  color: #64748b;
+  color: #1e293baf !important;
   font-size: 20px;
-  z-index: 2;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .glass-input {
@@ -231,10 +232,10 @@
 .password-toggle {
   position: absolute;
   right: 16px;
-  color: #64748b;
+  color: #1e293baf;
   font-size: 20px;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
   transition: color 0.3s ease;
 }
 
