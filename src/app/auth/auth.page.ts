@@ -8,12 +8,13 @@ import {
 } from '@angular/forms';
 import {
   IonContent,
-  IonRouterOutlet,
   IonInput,
   IonButton,
   IonIcon,
   IonSpinner,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-auth',
@@ -36,6 +37,10 @@ export class AuthPage implements OnInit {
   isLoading = false;
 
   constructor(private fb: FormBuilder) {
+    addIcons({
+      eyeOffOutline,
+      eyeOutline,
+    });
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
