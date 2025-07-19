@@ -1,0 +1,7 @@
+{
+  "name": "nginx-financing-hybrid",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
