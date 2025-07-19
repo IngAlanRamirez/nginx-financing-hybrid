@@ -1,0 +1,419 @@
+// Glassmorphism Login Form Styles
+
+.auth-background {
+  --background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+// Background decorative shapes
+.background-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 80px;
+  height: 80px;
+  top: 20%;
+  left: 10%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 120px;
+  height: 120px;
+  top: 60%;
+  right: 10%;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  animation-delay: 2s;
+}
+
+.shape-3 {
+  width: 60px;
+  height: 60px;
+  bottom: 20%;
+  left: 20%;
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  animation-delay: 4s;
+}
+
+.shape-4 {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  right: 30%;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  animation-delay: 1s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+// Main container
+.auth-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+// Glass card
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
+  border-radius: 24px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.5),
+    transparent
+  );
+}
+
+// Header section
+.auth-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.3),
+    rgba(59, 130, 246, 0.15)
+  );
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 2px solid rgba(59, 130, 246, 0.4);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+}
+
+.logo-icon {
+  font-size: 32px;
+  color: #3b82f6;
+}
+
+.auth-title {
+  color: #1e293b;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-subtitle {
+  color: #64748b;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 400;
+}
+
+// Form styles
+.auth-form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  margin-top: 8px;
+  padding-left: 16px;
+  font-size: 12px;
+  color: #ff6b6b;
+  font-weight: 500;
+}
+
+.error-message span {
+  display: block;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  color: #64748b;
+  font-size: 20px;
+  z-index: 2;
+}
+
+.glass-input {
+  --background: rgba(248, 250, 252, 0.9);
+  --color: #1e293b;
+  --placeholder-color: #94a3b8;
+  --border-radius: 12px !important;
+  --border: 2px solid rgba(59, 130, 246, 0.3);
+  --padding-start: 50px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  backdrop-filter: blur(15px);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.glass-input:focus-within {
+  --border: 2px solid rgba(59, 130, 246, 0.6);
+  --background: rgba(255, 255, 255, 0.95);
+  --border-radius: 12px !important;
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.2);
+  outline: none;
+  border-radius: 12px !important;
+}
+
+.glass-input.error {
+  --border: 1px solid #ff6b6b;
+  --background: rgba(255, 107, 107, 0.1);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 16px;
+  color: #64748b;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #3b82f6;
+}
+
+// Form options
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+ion-checkbox {
+  --background: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(255, 255, 255, 0.3);
+  --checkmark-color: white;
+  --border-radius: 6px;
+}
+
+.checkbox-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.forgot-password {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: white;
+}
+
+// Login button
+.login-button {
+  --background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  --border-radius: 12px;
+  --border: 1px solid rgba(59, 130, 246, 0.2);
+  --color: white;
+  --font-weight: 600;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.login-button:hover {
+  --background: linear-gradient(135deg, #2563eb, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.login-button:disabled {
+  --background: rgba(148, 163, 184, 0.3);
+  --color: rgba(255, 255, 255, 0.7);
+  transform: none;
+  box-shadow: none;
+}
+
+// Social login
+.social-login {
+  margin-bottom: 30px;
+}
+
+.divider {
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.divider span {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 0 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-button {
+  flex: 1;
+  --background: rgba(255, 255, 255, 0.1);
+  --border-radius: 12px;
+  --border: 1px solid rgba(255, 255, 255, 0.2);
+  --color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.social-button:hover {
+  --background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.social-button ion-icon {
+  font-size: 18px;
+}
+
+// Footer
+.auth-footer {
+  text-align: center;
+}
+
+.auth-footer p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin: 0;
+}
+
+.signup-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 16px;
+  }
+
+  .glass-card {
+    padding: 30px 20px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+  }
+
+  .social-buttons {
+    flex-direction: column;
+  }
+}
+
+// Loading animation
+ion-spinner {
+  --color: white;
+}
+
+// Focus states for accessibility
+.glass-input:focus-within {
+  outline: none;
+}
+
+.login-button:focus,
+.social-button:focus {
+  border-radius: 12px;
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
