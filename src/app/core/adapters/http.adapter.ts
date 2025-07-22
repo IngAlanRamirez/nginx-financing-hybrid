@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, from, throwError } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -8,24 +8,49 @@ import {
   HttpResponse,
   HttpError,
 } from '../interfaces/http.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpAdapter {
-  private baseUrl = 'http://localhost:3000'; // Cambiar según tu API de NestJS
+  // Signals for reactive state management
+  private readonly _baseUrl = signal(environment.apiUrl);
+  private readonly _isOnline = signal(navigator.onLine);
+  private readonly _pendingRequests = signal(0);
 
-  constructor(private http: HttpClient) {}
+  // Computed signals
+  readonly baseUrl = this._baseUrl.asReadonly();
+  readonly isOnline = this._isOnline.asReadonly();
+  readonly pendingRequests = this._pendingRequests.asReadonly();
+  readonly hasPendingRequests = computed(() => this._pendingRequests() > 0);
+
+  constructor(private http: HttpClient) {
+    // Listen for online/offline events
+    window.addEventListener('online', () => this._isOnline.set(true));
+    window.addEventListener('offline', () => this._isOnline.set(false));
+  }
 
   /**
    * Make HTTP request using the appropriate method based on platform
    */
   request<T = any>(options: HttpRequestOptions): Observable<HttpResponse<T>> {
-    if (PlatformHelper.isWeb()) {
-      return this.webRequest<T>(options);
-    } else {
-      return this.mobileRequest<T>(options);
-    }
+    this._pendingRequests.update((count) => count + 1);
+
+    const request$ = PlatformHelper.isWeb()
+      ? this.webRequest<T>(options)
+      : this.mobileRequest<T>(options);
+
+    return request$.pipe(
+      map((response) => {
+        this._pendingRequests.update((count) => count - 1);
+        return response;
+      }),
+      catchError((error) => {
+        this._pendingRequests.update((count) => count - 1);
+        return throwError(() => error);
+      })
+    );
   }
 
   /**
@@ -138,7 +163,7 @@ export class HttpAdapter {
     path: string,
     params?: Record<string, string | number | boolean>
   ): string {
-    let url = path.startsWith('http') ? path : `${this.baseUrl}${path}`;
+    let url = path.startsWith('http') ? path : `${this._baseUrl()}${path}`;
 
     if (params) {
       const searchParams = new URLSearchParams();

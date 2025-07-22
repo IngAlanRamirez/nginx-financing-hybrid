@@ -1,20 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Dashboard </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" fill="clear">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="welcome-container">
+    <h1>¡Bienvenido!</h1>
+    <p>Has iniciado sesión exitosamente en tu cuenta.</p>
+  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  @if (currentUser()) {
+  <ion-card class="user-card">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="person-outline"></ion-icon>
+        Información del Usuario
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="user-info">
+        <div class="info-item">
+          <ion-icon name="person-outline"></ion-icon>
+          <span><strong>Nombre:</strong> {{ currentUser()?.name }}</span>
+        </div>
+        <div class="info-item">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span><strong>Email:</strong> {{ currentUser()?.email }}</span>
+        </div>
+        <div class="info-item">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span
+            ><strong>Miembro desde:</strong> {{ currentUser()?.createdAt |
+            date:'mediumDate' }}</span
+          >
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  }
+
+  <div class="actions-container">
+    <ion-button expand="block" fill="outline" (click)="logout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Cerrar Sesión
+    </ion-button>
   </div>
 </ion-content>
+
+<!-- Toast for notifications -->
+<ion-toast
+  [isOpen]="showToast()"
+  [message]="toastMessage()"
+  [color]="toastColor()"
+  [duration]="3000"
+  (didDismiss)="onToastDismiss()"
+></ion-toast>

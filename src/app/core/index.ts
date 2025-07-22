@@ -5,12 +5,14 @@ export { PlatformHelper } from './helpers/platform.helper';
 export { HttpAdapter } from './adapters/http.adapter';
 
 // Services
-export {
-  ApiService,
-  User,
-  LoginRequest,
-  LoginResponse,
-} from './services/api.service';
+export { AuthService } from './services/auth.service';
 
 // Interfaces
 export * from './interfaces/http.interface';
+export * from './interfaces/auth.interface';
+
+// Interceptors
+export { AuthInterceptor } from './interceptors/auth.interceptor';
+
+// Guards
+export { AuthGuard } from './guards/auth.guard';

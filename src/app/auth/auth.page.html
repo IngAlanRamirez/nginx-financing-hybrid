@@ -24,7 +24,7 @@
       <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <div class="form-group">
           <div class="input-container">
-            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
             <ion-input
               type="email"
               placeholder="Correo electrónico"
@@ -33,55 +33,66 @@
               [class.error]="email?.invalid && email?.touched"
             ></ion-input>
           </div>
-          <div class="error-message" *ngIf="email?.invalid && email?.touched">
-            <span *ngIf="email?.errors?.['required']"
-              >El correo electrónico es requerido</span
-            >
-            <span *ngIf="email?.errors?.['email']"
-              >Ingresa un correo electrónico válido</span
-            >
+          @if (email?.invalid && email?.touched) {
+          <div class="error-message">
+            @if (email?.errors?.['required']) {
+            <span>El correo electrónico es requerido</span>
+            } @if (email?.errors?.['email']) {
+            <span>Ingresa un correo electrónico válido</span>
+            }
           </div>
+          }
         </div>
 
         <div class="form-group">
           <div class="input-container">
             <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
             <ion-input
-              [type]="showPassword ? 'text' : 'password'"
+              [type]="showPassword() ? 'text' : 'password'"
               placeholder="Contraseña"
               formControlName="password"
               class="glass-input"
               [class.error]="password?.invalid && password?.touched"
             ></ion-input>
             <ion-icon
-              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+              [name]="showPassword() ? 'eye-off-outline' : 'eye-outline'"
               class="password-toggle"
               (click)="togglePassword()"
             ></ion-icon>
           </div>
-          <div
-            class="error-message"
-            *ngIf="password?.invalid && password?.touched"
-          >
-            <span *ngIf="password?.errors?.['required']"
-              >La contraseña es requerida</span
-            >
-            <span *ngIf="password?.errors?.['minlength']"
-              >La contraseña debe tener al menos 6 caracteres</span
-            >
+          @if (password?.invalid && password?.touched) {
+          <div class="error-message">
+            @if (password?.errors?.['required']) {
+            <span>La contraseña es requerida</span>
+            } @if (password?.errors?.['minlength']) {
+            <span>La contraseña debe tener al menos 6 caracteres</span>
+            }
           </div>
+          }
         </div>
 
         <ion-button
           type="submit"
           expand="block"
           class="login-button"
-          [disabled]="loginForm.invalid || isLoading"
+          [disabled]="loginForm.invalid || isLoading()"
         >
-          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-          <span *ngIf="!isLoading">Iniciar Sesión</span>
+          @if (isLoading()) {
+          <ion-spinner name="crescent"></ion-spinner>
+          } @else {
+          <span>Iniciar Sesión</span>
+          }
         </ion-button>
       </form>
     </div>
   </div>
+
+  <!-- Toast for notifications -->
+  <ion-toast
+    [isOpen]="showToast()"
+    [message]="toastMessage()"
+    [color]="toastColor()"
+    [duration]="3000"
+    (didDismiss)="onToastDismiss()"
+  ></ion-toast>
 </ion-content>
